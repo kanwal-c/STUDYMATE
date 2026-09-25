@@ -3,1166 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>StudyMate Dashboard</title>
-
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap">
-
-    <link rel="stylesheet" href="style.css">
-
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: "Inter", sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
-        }
-
-        button {
-            font-family: inherit;
-            cursor: pointer;
-        }
-
-        .dashboard-layout {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* SIDEBAR */
-
-        .sidebar {
-            width: 240px;
-            background: white;
-            border-right: 1px solid #e2e8f0;
-            padding: 25px 18px;
-            position: fixed;
-            height: 100vh;
-            left: 0;
-            top: 0;
-        }
-
-        .side-logo {
-            font-family: "Poppins", sans-serif;
-            font-size: 22px;
-            font-weight: 700;
-            color: #4f46e5;
-            margin-bottom: 40px;
-        }
-
-        .side-menu {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .side-menu a {
-            text-decoration: none;
-            color: #64748b;
-            padding: 12px 14px;
-            border-radius: 10px;
-            font-weight: 500;
-            transition: 0.2s;
-        }
-
-        .side-menu a:hover,
-        .side-menu a.active {
-            background: #eef2ff;
-            color: #4f46e5;
-        }
-
-        /* MAIN */
-
-        .main {
-            margin-left: 240px;
-            width: calc(100% - 240px);
-            padding: 30px;
-        }
-
-        .topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .topbar h1 {
-            font-family: "Poppins", sans-serif;
-            font-size: 28px;
-        }
-
-        .topbar p {
-            color: #64748b;
-            margin-top: 5px;
-        }
-
-        .profile {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #4f46e5, #7c3aed);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: 700;
-        }
-
-        /* STATS */
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 22px;
-            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.04);
-        }
-
-        .stat-card h3 {
-            font-size: 14px;
-            color: #64748b;
-            margin-bottom: 10px;
-        }
-
-        .stat-card strong {
-            font-size: 30px;
-            color: #4f46e5;
-        }
-
-    /* SECTIONS */
-
-        .section {
-         background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.04);
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .section-header h2 {
-            font-family: "Poppins", sans-serif;
-            font-size: 20px;
-        }
-
-        .add-btn {
-            background: #4f46e5;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 9px;
-            font-weight: 600;
-        }
-
-        .add-btn:hover {
-            background: #4338ca;
-        }
-
-        /* TASKS */
-
-        .task {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            margin-bottom: 12px;
-        }
-
-        .task-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .task-left input {
-            width: 18px;
-            height: 18px;
-            accent-color: #4f46e5;
-        }
-
-        .task-info h4 {
-            margin-bottom: 4px;
-        }
-
-        .task-info span {
-            font-size: 13px;
-            color: #64748b;
-        }
-
-        .delete-btn {
-            border: none;
-            background: transparent;
-            color: #ef4444;
-            font-size: 18px;
-        }
-
-        .completed h4 {
-            text-decoration: line-through;
-            color: #94a3b8;
-        }
-
-        /* PROGRESS */
-
-        .progress-container {
-            margin-top: 15px;
-        }
-
-        .progress-bar {
-            height: 14px;
-            background: #e2e8f0;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #4f46e5, #7c3aed);
-            transition: 0.4s;
-        }
-
-        .progress-number {
-            text-align: center;
-            font-size: 35px;
-            font-weight: 700;
-            color: #4f46e5;
-            margin-bottom: 15px;
-        }
-
-        /* FOCUS MODE */
-
-        .focus-box {
-            text-align: center;
-            padding: 20px;
-        }
-
-        #timer {
-            font-family: "Poppins", sans-serif;
-            font-size: 55px;
-            font-weight: 700;
-            color: #4f46e5;
-            margin-bottom: 15px;
-        }
-
-        .timer-buttons button {
-            border: none;
-            padding: 11px 20px;
-            border-radius: 9px;
-            margin: 5px;
-            font-weight: 600;
-        }
-
-        .start-btn {
-            background: #4f46e5;
-            color: white;
-        }
-
-        .reset-btn {
-            background: #eef2ff;
-            color: #4f46e5;
-        }
-
-        /* NOTES */
-
-        .notes-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .note {
-            border: 1px solid #e2e8f0;
-            padding: 18px;
-            border-radius: 12px;
-            position: relative;
-        }
-
-        .note h3 {
-            margin-bottom: 8px;
-        }
-
-        .note p {
-            color: #64748b;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        .note .delete-btn {
-            position: absolute;
-            right: 12px;
-            top: 12px;
-        }
-
-        /* PLANNER */
-
-        .schedule {
-            display: grid;
-            gap: 12px;
-        }
-
-        .schedule-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px;
-            border-radius: 10px;
-            background: #f8fafc;
-            border-left: 4px solid #4f46e5;
-        }
-
-        .schedule-item span {
-            color: #64748b;
-            font-size: 14px;
-        }
-
-        /* MODAL */
-
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.45);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background: white;
-            width: 90%;
-            max-width: 450px;
-            padding: 25px;
-            border-radius: 16px;
-        }
-
-        .modal-content h2 {
-            font-family: "Poppins", sans-serif;
-            margin-bottom: 20px;
-        }
-
-        .modal-content input,
-        .modal-content textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #e2e8f0;
-            border-radius: 9px;
-            margin-bottom: 12px;
-            font-family: inherit;
-        }
-
-        .modal-content textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .modal-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-        }
-
-        .modal-actions button {
-            padding: 10px 16px;
-            border-radius: 8px;
-            border: none;
-        }
-
-        .cancel-btn {
-            background: #e2e8f0;
-        }
-
-        .save-btn {
-            background: #4f46e5;
-            color: white;
-        }
-
-        /* RESPONSIVE */
-
-        @media (max-width: 900px) {
-            .sidebar {
-                width: 190px;
-            }
-
-            .main {
-                margin-left: 190px;
-                width: calc(100% - 190px);
-            }
-
-            .stats {
-                grid-template-columns: 1fr;
-            }
-
-            .notes-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 650px) {
-            .sidebar {
-                display: none;
-            }
-
-            .main {
-                margin-left: 0;
-                width: 100%;
-                padding: 20px;
-            }
-
-            .topbar h1 {
-                font-size: 22px;
-            }
-        }
-    </style>
+    <title>StudyMate &#127891 | PlanBetter. Study Smarter.</title>
+    <!-- google font-->
+     <link rel = "preconnect"
+     href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com"
+     crossorigin>
+     <link 
+     href="https://fonts.googleapis.com/css2?family=inter:wght@400;600;700&family=Poppins:wght@600;700&display=swap"
+     rel="stylesheet">
+        <!-- Our Css file -->
+         <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-<div class="dashboard-layout">
-
-    <!-- SIDEBAR -->
-
-    <aside class="sidebar">
-
-        <div class="side-logo">
-            🎓 StudyMate
-        </div>
-
-        <nav class="side-menu">
-            <a href="#dashboard" class="active">📊 Dashboard</a>
-            <a href="#planner">📅 Planner</a>
-            <a href="#notes">📝 Notes</a>
-            <a href="#tasks">✅ Tasks</a>
-            <a href="#progress">📈 Progress</a>
-            <a href="index.html">🏠 Home</a>
+     <!--Navigation Bar-->
+     <header>
+        <nav class="navbar">
+            <div class = "logo">
+                StudyMate
+                </div>
+                <ul class="nav-links">
+                    <li> <a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How it Works</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+                <a href="dashboard.html" class="nav-button">
+                    Get started
+                </a>
         </nav>
+     </header>
+     <!--Hero section-->
+     <main>
 
-    </aside>
+        <section id="home" class="hero">
+            <div class="hero">
+                <p class="small-heading"> YOUR SMART STUDY COMPANION</p>
+                <h1>
+                    Your Studies,
+                    <span>Organized in one place.</span>
+                </h1>
+                <p class="hero-text">
+                    StudyMate helps students plan their study time,
+                    manage task, organize notes and track their progress.
+                </p>
+                <div class="hero-button">
+                    <a href="#dashboard.html"
+                    class ="primary-button">
+                Get Started 
+            </a>
+            <a href="#features"
+            class="Secondary-button">
+                        Explore Features
+                    </a>
+                </div>
+                </div>
 
+                <!--Dashboard Preview-->
+                <div class="dashboard-preview">
+                    <div class="preview-header">
+                    <div>
+                    <h3> Good morning &#128079 </h3>
+                    <p> Ready to Study?</p>
+                </div>
 
-    <!-- MAIN CONTENT -->
+                <div class="profile-circle">
+                    S
+                </div> 
+                </div>
+                
+                <div class="progress-card">
 
-    <main class="main" id="dashboard">
+                <div>
+                    <p> Overall Progress</p>
+                    <h2> 72% </h2>
+                </div>
 
-        <!-- TOP BAR -->
-
-        <div class="topbar">
-
+                <div class="progress-circle">
+                    72%
+                </div>
+             </div>
+             
+             <h3 class="preview-title"> Today's Tasks</h3>
+             <div class="task">
+                <span class="check">&#10003</span>
+                <div>
+                <strong>Mathematics</strong>
+                <small>Limits and Function</small>
+             </div>
+           </div>
+           
+        <div class="task">
+            <span class="empty-check"></span>
             <div>
-                <h1>Good evening, Student 👋</h1>
-                <p>Let's make today's study session productive.</p>
+                <strong>Programming</strong>
+                <small>Java OOP Practice</small>
             </div>
-
-            <div class="profile">
-                S
+        </div>   
+        <div class="task">
+            <span class="empty-check"></span>
+            <div>
+                <strong>English</strong>
+                <small>Essay writing</small>
             </div>
-
-        </div>
-
-
-        <!-- STATS -->
-
-        <div class="stats">
-
-            <div class="stat-card">
-                <h3>Total Tasks</h3>
-                <strong id="totalTasks">0</strong>
-            </div>
-
-            <div class="stat-card">
-                <h3>Completed Tasks</h3>
-                <strong id="completedTasks">0</strong>
-            </div>
-
-            <div class="stat-card">
-                <h3>Overall Progress</h3>
-                <strong id="progressText">0%</strong>
-            </div>
-
-        </div>
-
-
-        <!-- TASKS -->
-
-        <section class="section" id="tasks">
-
-            <div class="section-header">
-
-                <h2>Today's Tasks</h2>
-
-                <button class="add-btn" onclick="openTaskModal()">
-                    + Add Task
-                </button>
-
-            </div>
-
-            <div id="taskList"></div>
-
-        </section>
-
-
-        <!-- PROGRESS -->
-
-        <section class="section" id="progress">
-
-            <div class="section-header">
-                <h2>Study Progress</h2>
-            </div>
-
-            <div class="progress-number" id="bigProgress">
-                0%
-            </div>
-
-            <div class="progress-container">
-
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- FOCUS MODE -->
-
-        <section class="section">
-
-            <div class="section-header">
-                <h2>🎯 Focus Mode</h2>
-            </div>
-
-            <div class="focus-box">
-
-                <div id="timer">
-                    25:00
-                </div>
-
-                <div class="timer-buttons">
-
-                    <button class="start-btn" onclick="startTimer()">
-                        Start
-                    </button>
-
-                    <button class="reset-btn" onclick="resetTimer()">
-                        Reset
-                    </button>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- NOTES -->
-
-        <section class="section" id="notes">
-
-            <div class="section-header">
-
-                <h2>📝 Smart Notes</h2>
-
-                <button class="add-btn" onclick="openNoteModal()">
-                    + Add Note
-                </button>
-
-            </div>
-
-            <div class="notes-grid" id="noteList"></div>
-
-        </section>
-
-
-        <!-- PLANNER -->
-
-        <section class="section" id="planner">
-
-            <div class="section-header">
-
-                <h2>📅 Today's Planner</h2>
-
-            </div>
-
-            <div class="schedule">
-
-                <div class="schedule-item">
-                    <strong>Mathematics</strong>
-                    <span>10:00 AM – 11:00 AM</span>
-                </div>
-
-                <div class="schedule-item">
-                    <strong>Java OOP</strong>
-                    <span>12:00 PM – 1:00 PM</span>
-                </div>
-
-                <div class="schedule-item">
-                    <strong>English</strong>
-                    <span>4:00 PM – 5:00 PM</span>
-                </div>
-
-                <div class="schedule-item">
-                    <strong>Revision</strong>
-                    <span>8:00 PM – 9:00 PM</span>
-                </div>
-
-            </div>
-
-        </section>
-
-      </main>
-
-</div>
-
-
-<!-- TASK MODAL -->
-
-<div class="modal" id="taskModal">
-
-    <div class="modal-content">
-
-        <h2>Add New Task</h2>
-
-        <input
-            type="text"
-            id="taskName"
-            placeholder="Task name"
-        >
-
-        <input
-            type="text"
-            id="taskSubject"
-            placeholder="Subject"
-        >
-
-        <div class="modal-actions">
-
-            <button
-                class="cancel-btn"
-                onclick="closeTaskModal()">
-                Cancel
-            </button>
-
-            <button
-                class="save-btn"
-                onclick="addTask()">
-                Add Task
-            </button>
         </div>
      </div>
+    
+ </section>
+
+ <!-- Features Section-->
+  <section id="Features" class="features">
+  <div class="section-heading">
+    <p> FEATURES</p>
+
+    <h2>
+        Everything you need to
+        <span>stay on track.</span>
+    </h2>
+    <p>
+        Simple tools designd to make student life more organized and productive.
+    </p>
+  </div>
+  <div class="features-container">
+    <div class="feature-card">
+        <div class="feature-icon">&#128197</div>
+        <h3> Task Manager</h3>
+        <p>
+            Keep track ofassignments, quizzes and important deadlines.
+        </p>
     </div>
 
+    <div class="feature-card">
+        <div class="feature-icon">&#128221</div>
+        <h3> Smart Notes</h3>
+      <p>
+         Keep your important study notes organized in one place.
+      </p>  
+    </div>
 
-<!-- NOTE MODAL -->
+    <div class="feature-card">
+        <div class="feature-icon">&#128202</div>
+        <h3>Progress Tracker</h3>
+        <p>
+            See your compiled tasks and study progress at one glance.
+        </p>
+    </div>
+  </div>
+  </section>
 
-<div class="modal" id="noteModal">
-
-    <div class="modal-content">
-
-        <h2>Add New Note</h2>
-
-        <input
-            type="text"
-            id="noteTitle"
-            placeholder="Note title"
-        >
-       <textarea
-            id="noteText"
-            placeholder="Write your note..."
-        ></textarea>
-        
-
-        <div class="modal-actions">
-
-            <button
-                class="cancel-btn"
-                onclick="closeNoteModal()">
-                Cancel
-            </button>
-
-            <button
-                class="save-btn"
-                onclick="addNote()">
-                Save Note
-            </button>
-
+  <!--How it Works-->
+  <section id="how-it-works" class="how-it-works">
+    <div class="section-heading">
+        <p>HOW IT WORKS</p>
+        <h2>
+            Study Smarter in 
+            <span> 3 simple steps.</span>
+        </h2>
         </div>
-
+        <div class="steps">
+            <div class="steps">
+        <div class="Step-number">01 </div>
+        <h3>Add Your Tasks</h3>
+        <p>
+            Add assignment, study sessions  and upcoming deadlines.
+        </p>
     </div>
-</div>
 
-
-<script>
-
-    /* =========================
-       TASK MANAGER
-    ========================= */
-
-    let tasks = JSON.parse(
-    localStorage.getItem("studyMateTasks")
-     ) || [];
-
-
-    function saveTasks() {
-
-        localStorage.setItem(
-            "studyMateTasks",
-            JSON.stringify(tasks)
-        );
-
-    }
-    function displayTasks() {
-
-        const taskList =
-            document.getElementById("taskList");
-
-        taskList.innerHTML = "";
-
-        tasks.forEach(task => {
-
-            const taskElement =
-                document.createElement("div");
-
-            taskElement.className =
-                "task " +
-                (task.completed ? "completed" : "");
-
-            taskElement.innerHTML = `
-
-                <div class="task-left">
-
-                    <input
-                        type="checkbox"
-                        ${task.completed ? "checked" : ""}
-                        onchange="toggleTask(${task.id})"
-                     >
-
-                    <div class="task-info">
-
-                        <h4>${task.name}</h4>
-
-                        <span>
-                            ${task.subject}
-                        </span>
-
-                    </div>
-
-                  </div>
-
-                <button
-                    class="delete-btn"
-                    onclick="deleteTask(${task.id})">
-                    🗑
-                </button>
-               `;
-
-            taskList.appendChild(taskElement);
-
-        });
-
-        updateProgress();
-
-    }
-
-
-    function toggleTask(id) {
-
-        tasks = tasks.map(task => {
-
-            if (task.id === id) {
-
-              return {
-              ...task,
-              completed: !task.completed
-                };
-
-            }
-
-            return task;
-
-        });
-
-        saveTasks();
-        displayTasks();
-
-    }
-
-
-    function deleteTask(id) {
-
-        tasks = tasks.filter(
-            task => task.id !== id
-        );
-
-        saveTasks();
-        displayTasks();
-
-    }
-
-
-    function updateProgress() {
-
-        const total = tasks.length;
-
-        const completed =
-            tasks.filter(
-                task => task.completed
-            ).length;
-
-        const progress =
-            total === 0
-                ? 0
-                : Math.round(
-                    (completed / total) * 100
-                );
-
-        document.getElementById(
-            "totalTasks"
-        ).textContent = total;
-
-        document.getElementById(
-            "completedTasks"
-        ).textContent = completed;
-
-        document.getElementById(
-            "progressText"
-        ).textContent = progress + "%";
-
-        document.getElementById(
-            "bigProgress"
-        ).textContent = progress + "%";
-
-        document.getElementById(
-            "progressFill"
-        ).style.width = progress + "%";
-
-    }
-
-
-    /* =========================
-       TASK MODAL
-    ========================= */
-
-    function openTaskModal() {
-
-        document.getElementById(
-            "taskModal"
-        ).style.display = "flex";
-
-    }
-
-
-    function closeTaskModal() {
-
-        document.getElementById(
-            "taskModal"
-        ).style.display = "none";
-
-    }
-
-
-    function addTask() {
-
-        const name =
-            document.getElementById(
-                "taskName"
-            ).value.trim();
-
-        const subject =
-            document.getElementById(
-                "taskSubject"
-            ).value.trim();
-
-        if (name === "") {
-
-            alert("Please enter a task name.");
-
-            return;
-
-        }
-
-        const newTask = {
-
-            id: Date.now(),
-
-            name: name,
-
-            subject:
-                subject || "General",
-
-            completed: false
-
-        };
-
-        tasks.push(newTask);
-
-        saveTasks();
-
-        displayTasks();
-
-        document.getElementById(
-            "taskName"
-        ).value = "";
-
-        document.getElementById(
-            "taskSubject"
-        ).value = "";
-
-        closeTaskModal();
-
-    }
-        /*=========================
-       NOTES
-    ========================= */
-
-    let notes = JSON.parse(
-        localStorage.getItem("studyMateNotes")
-    ) || [
-
-        {
-            id: 1,
-            title: "Java OOP",
-            text: "Practice classes, objects and constructors."
-        },
-
-        {
-            id: 2,
-            title: "Math Revision",
-            text: "Review limits and differentiation."
-        }
-
-    ];
-
-
-    function saveNotes() {
-
-        localStorage.setItem(
-            "studyMateNotes",
-            JSON.stringify(notes)
-        );
-
-    }
-
-
-    function displayNotes() {
-
-        const noteList =
-            document.getElementById(
-                "noteList"
-            );
-
-        noteList.innerHTML = "";
-
-        notes.forEach(note => {
-
-            const noteElement =
-                document.createElement("div");
-
-            noteElement.className = "note";
-
-            noteElement.innerHTML = `
-
-                <h3>${note.title}</h3>
-
-                <p>${note.text}</p>
-
-                <button
-                    class="delete-btn"
-                    onclick="deleteNote(${note.id})">
-                    🗑
-                </button>
-
-            `;
-
-            noteList.appendChild(noteElement);
-
-        });
-
-    }
-
-
-    function openNoteModal() {
-
-        document.getElementById(
-            "noteModal"
-        ).style.display = "flex";
-
-    }
-
-
-    function closeNoteModal() {
-
-        document.getElementById(
-            "noteModal"
-        ).style.display = "none";
-
-    }
-
-
-    function addNote() {
-
-        const title =
-            document.getElementById(
-                "noteTitle"
-            ).value.trim();
-
-        const text =
-            document.getElementById(
-                "noteText"
-            ).value.trim();
-
-        if (title === "" || text === "") {
-
-            alert("Please complete the note.");
-
-            return;
-
-        }
-
-        notes.push({
-
-            id: Date.now(),
-
-            title: title,
-
-            text: text
-
-        });
-
-        saveNotes();
-
-        displayNotes();
-
-        document.getElementById(
-            "noteTitle"
-        ).value = "";
-
-        document.getElementById(
-            "noteText"
-        ).value = "";
-
-        closeNoteModal();
-
-    }
-
-
-    function deleteNote(id) {
-
-        notes = notes.filter(
-            note=> note.id !== id
-        );
-
-        saveNotes();
-
-        displayNotes();
-
-    }
-
-
-    /* =========================
-       FOCUS TIMER
-    ========================= */
-
-    let timeLeft = 25 * 60;
-
-    let timerInterval = null;
-
-
-    function updateTimer() {
-
-        const minutes =
-            Math.floor(timeLeft / 60);
-
-        const seconds =
-            timeLeft % 60;
-
-        document.getElementById(
-            "timer"
-        ).textContent =
-
-            String(minutes).padStart(2, "0")
-            + ":" +
-            String(seconds).padStart(2, "0");
-
-    }
-
-
-    function startTimer() {
-
-        if (timerInterval !== null) {
-            return;
-        }
-
-        timerInterval =
-            setInterval(()=>{
-            if (timeLeft > 0) {
-
-                    timeLeft--; updateTimer();
-
-                } else {
-
-                    clearInterval(
-                        timerInterval
-                    );
-
-                    timerInterval = null;
-
-                    alert(
-                        "Focus session completed! 🎉"
-                    );
-
-                }
-
-            }, 1000);
-
-    }
-
-
-    function resetTimer() {
-
-     clearInterval(
-            timerInterval
-        );
-
-        timerInterval = null;
-
-        timeLeft = 25 * 60;
-
-        updateTimer();
-
-    }
-
- /* =========================
-       INITIAL LOAD
- ========================= */
-
-    displayTasks();
-
-    displayNotes();
-
-    updateTimer();
-
-</script>
+    <div class="step">
+        <div class="step-number">02</div>
+        <h3> s\Stay focused></h3>
+        <p>
+            Use Focus Mode to dedicate time to your studies.
+        </p>
+    </div>
+
+   <div class="step">
+    <div class="step-number">03</div>
+    <h3>Track Progress</h3>
+     <p>
+        Complete your tasks and watch your progress grow.
+     </p>
+   </div> 
+  </div>
+</section>
+
+<!-- Call to Action-->
+ <section id="about" class="cta">
+    <h2> Ready to study smarter?</h2>
+    <p>
+        Start organizing your academic life with StudyMate
+    </p>
+    <a href="dashboard.html" class="Primary-button">
+        Start using StudyMate
+    </a>
+ </section>
+     </main>
+
+     <!--Footer-->
+     <footer>
+        <div class="logo">
+             &#127891 StudyMate
+        </div>
+        <p>
+            Plan better.Study Smarter.
+        </p>
+        <p class="copyright">
+            &copy; 2026 StudyMate.Built for Student.
+        </p>
+     </footer>
 
 </body>
 </html>
-
